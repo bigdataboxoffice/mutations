@@ -1,16 +1,16 @@
 module Mutations
   class StringFilter < AdditionalFilter
     @default_options = {
-      :strip => true,          # true calls data.strip if data is a string
+      :strip => false,         # true calls data.strip if data is a string
       :strict => false,        # If false, then symbols, numbers, and booleans are converted to a string with to_s.
       :nils => false,          # true allows an explicit nil to be valid. Overrides any other options
-      :empty => false,         # false disallows "".  true allows "" and overrides any other validations (b/c they couldn't be true if it's empty)
+      :empty => true,          # false disallows "".  true allows "" and overrides any other validations (b/c they couldn't be true if it's empty)
       :min_length => nil,      # Can be a number like 5, meaning that 5 codepoints are required
       :max_length => nil,      # Can be a number like 10, meaning that at most 10 codepoints are permitted
       :matches => nil,         # Can be a regexp
       :in => nil,              # Can be an array like %w(red blue green)
       :discard_empty => false, # If the param is optional, discard_empty: true drops empty fields.
-      :allow_control_characters => false    # false removes unprintable characters from the string
+      :allow_control_characters => true    # false removes unprintable characters from the string
     }
 
     def filter(data)
@@ -34,12 +34,8 @@ module Mutations
       data = data.strip if options[:strip]
 
       # Now check if it's blank:
-      if data == ""
-        if options[:empty]
-          return [data, nil]
-        else
-          return [data, :empty]
-        end
+      if data == "" && !opts[:empty]
+        return [data, :empty]
       end
 
       # Now check to see if it's the correct size:

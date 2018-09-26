@@ -1,5 +1,8 @@
 # Mutations
 
+This is EDO's fork of the mutation gem. In particular, we override most of the default filter behavior.
+
+
 [![Build Status](https://travis-ci.org/cypriss/mutations.svg)](https://travis-ci.org/cypriss/mutations)
 [![Code Climate](https://codeclimate.com/github/cypriss/mutations.svg)](https://codeclimate.com/github/cypriss/mutations)
 
