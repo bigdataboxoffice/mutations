@@ -34,7 +34,7 @@ module Mutations
       data = data.strip if options[:strip]
 
       # Now check if it's blank:
-      if data == "" && !opts[:empty]
+      if data == "" && !options[:empty]
         return [data, :empty]
       end
 
